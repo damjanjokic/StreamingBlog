@@ -1,0 +1,97 @@
+<% include ../partials/header %>
+
+
+      <div class="stream_banner">
+        <img class="img-responsive banner" src="<%=data["profile_banner"]%>">
+      </div>
+
+
+
+      <div class="container">
+
+        <div class="row">
+
+          <div class="col-md-2">
+            <div class="thumbnail">
+              <img class="img-responsive" src="<%=data["logo"]%>">
+              <div class="caption">
+                <div class="channelName">
+                  <h4><%=data["display_name"]%></h4>
+                </div>
+                <hr>
+                <div class="row">
+                  <div class="col-md-4"><strong>Playing:</strong></div>
+                  <div class="col-md-8"><%=data["game"]%></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4"><strong>Follows:</strong></div>
+                  <div class="col-md-8"><%=data["followers"]%></div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4"><strong>Viewers:</strong></div>
+                  <div class="col-md-8"><%=data["views"]%></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-10">
+            <div class="thumbnail">
+
+             <!-- 16:9 aspect ratio -->
+             <div class="embed-responsive embed-responsive-16by9">
+              <iframe class="embed-responsive-item" src="https://player.twitch.tv/?channel=<%=stream.author.username%>" frameborder="0" allowfullscreen="true" scrolling="no" height="378" width="620"></iframe>
+            </div>
+
+
+            <div class="caption-full">
+              <span class="description"><%-stream.description%></span>
+              <div class="text-right">
+               <% if(currentUser && stream.author.id.equals(currentUser._id)){ %>
+               <a class="btn btn-xs btn-warning" href="/streams/<%=stream._id%>/edit">Edit</a>
+               <form id="delete-form" action="/streams/<%= stream._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger btn-xs">Delete</button>
+              </form>
+
+
+              <% }%>
+            </div>
+          </div>
+        </div>
+
+        <div class="well">
+
+          <div class="text-right">
+            <% if(currentUser && stream.author.id.equals(currentUser._id)){ %>
+            <div><a href="/streams/<%=stream._id%>/blogs/new" class="btn btn-success">Add New Post</a></div>
+          </form>
+            <% } %>
+        </div>
+        <hr>
+        <% stream.blogs.forEach(function(blog){ %>
+        <div class="media">
+          <a class="pull-left" href="/streams/<%=stream._id%>/blogs/<%=blog._id%>">
+            <img class="media-object" src="<%=blog.image%>">
+          </a>
+          <div class="media-body">
+            <h3 class="media-heading"><%=blog.title%></h3>
+            <p class="text-right"><%=blog.author.username%></p>
+            <p><%-blog.content.substring(0, 400)%>...%></p>
+            <ul class="list-inline list-unstyled">
+              <li><span><i class="glyphicon glyphicon-calendar"></i> <%=blog.created.toDateString()%> </span></li>
+              <li>|</li>
+              <span><i class="glyphicon glyphicon-comment"></i> 
+                <%=blog.comments.length%> comments
+              </span>
+            </ul>
+          </div>
+        </div>
+        <hr>
+        <% }) %>
+      </div>
+
+
+
+      <% include ../partials/footer %>
+
+

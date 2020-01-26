@@ -1,0 +1,43 @@
+<% include ../partials/header %> 
+
+<div class="container">
+ <header class="jumbotron">
+   <div class="container">
+     <h1>Streaming Blog</h1>
+     <p>Join us if you have an active channel on Twitch.tv</p>
+     <p>
+      <a class="btn btn-primary btn-large" href="/streams/new">Register your blog</a>
+    </p>
+  </div>
+</header>
+<div class="row text-center">
+  <div class="col-md-12">
+   <form action="/streams" method="GET" class="form-inline">
+      <div class="form-group">
+        <input class="form-control" type="text" name="searchStreams" placeholder="Search for streamers">
+        <input class="btn btn-default" type="submit" value="Search">
+      </div>
+    </form>
+    <% if(found !== null) { %>
+      <h3><%=found%></h3>
+    <% } %>
+  </div>
+</div>
+
+<div class="row text-center" style="row.display:flex; flex-wrap: wrap;">
+  <% streams.forEach(function(stream){ %>
+  <div class="col-md-3 col-sm-6">
+    <div class="thumbnail">
+     <img src="<%= stream.image %>">
+     <div class="caption">
+       <h4><%= stream.name %></h4>
+     </div>
+     <p>
+       <a href="/streams/<%= stream._id %>" class="btn btn-primary">Watch me!</a>
+     </p>
+   </div>
+ </div>
+ <% }); %>
+</div>
+</div>
+<% include ../partials/footer %>

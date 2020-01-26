@@ -1,0 +1,55 @@
+<!DOCTYPE>
+<html>
+<head>
+    <title>Streaming Blog</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/stylesheets/main.css">
+    <script src="https://code.jquery.com/jquery-git2.min.js"></script>
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+   <link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" type="text/css">
+
+
+</head>
+<body>
+
+
+ <nav class="navbar navbar-default navbar-fixed-top">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="/">StreamingBlog</a>
+</div>
+<div class="navbar-collapse collapse">
+    <ul class="nav navbar-nav">
+      <li><a href="/streams">Streams</a></li>
+  </ul>
+  <ul class="nav navbar-nav navbar-center">
+    <% if (error && error.length > 0) { %>
+    <p class="navbar-text error" ><%=error%></p>
+    <% } %>
+
+    <% if (success && success.length > 0) { %>
+    <p class="navbar-text success" ><%=success%></p>
+    <% } %>
+</ul>
+<ul class="nav navbar-nav navbar-right">
+    <% if(!currentUser) { %>
+    <li><a href="/auth/twitch"><i class="fa fa-user"></i> Login with Twitch</a></li>
+    <% } else { %>
+    <li><a>Signed In As <%= currentUser.username%></a></li>
+    <li><a href="/logout">Logout</a></li>     
+    <% } %>
+    <li><a href="/#"></a></li> 
+</div>
+</nav>
+
+
+
+
+
+
+
